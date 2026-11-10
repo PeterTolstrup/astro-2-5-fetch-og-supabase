@@ -4,11 +4,21 @@ import BrandingSection from "../components/BrandingSection.astro";
 
 import PageLayout from "../layouts/PageLayout.astro";
 
-const response = await fetch('https://dummyjson.com/products?limit=3');
-const data = await response.json();
-const products = data.products;
+const url = "https://halnlercergpfthawfgy.supabase.co/rest/v1/";
+const tabel = "Animals";
 
-console.log("products", products);
+const key = "sb_publishable_Kk6axxbdvzKOJ_nlU7gbXg_r2U0dlLm";
+
+const options = {
+  headers: {
+    apikey: key
+  }
+}
+
+const response = await fetch(url + tabel, options);
+const animals = await response.json();
+
+console.log("animals", animals);
 ---
 
 <PageLayout title="Fetch Example" headline="An Example With Fetch" text="Soon you know">
@@ -16,8 +26,8 @@ console.log("products", products);
     <h2>Her kunne der være nogle cards</h2>
     <div class="cards">
       {
-        products.map((product) => {
-          return <Card headline={product.title} text={product.description} image={product.thumbnail}/>
+        animals.map((animal) => {
+          return <Card headline={animal.name} text={animal.description} image={animal.image}/>
         })
       }
     </div>
